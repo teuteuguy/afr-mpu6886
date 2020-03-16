@@ -1,0 +1,3 @@
+[submodule "afr-common-io-helpers"]
+	path = afr-common-io-helpers
+	url = https://github.com/teuteuguy/afr-common-io-helpers
