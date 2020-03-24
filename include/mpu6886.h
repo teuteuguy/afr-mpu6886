@@ -115,26 +115,26 @@ typedef int32_t mpu6886_err_t;
 #define MPU6886_RESET_VALUE_WHO_AM_I    ( 0x19 )
 
 //#define G (9.8)
-#define RtA                         ( 57.324841 )
-#define AtR    	                    ( 0.0174533	)
-#define Gyro_Gr	                    ( 0.0010653 )
+#define MPU6886_RtA                     ( 57.324841 )
+#define MPU6886_AtR    	                ( 0.0174533	)
+#define MPU6886_Gyro_Gr	                ( 0.0010653 )
 
-enum Ascale {
+enum MPU6886_ENUM_ACCEL_SCALE {
 	AFS_2G = 0,
 	AFS_4G,
 	AFS_8G,
 	AFS_16G
 };
 
-enum Gscale {
+enum MPU6886_ENUM_GYRO_SCALE {
 	GFS_250DPS = 0,
 	GFS_500DPS,
 	GFS_1000DPS,
 	GFS_2000DPS
 };
 
-extern enum Gscale Gyscale;
-extern enum Ascale Acscale;
+extern enum MPU6886_ENUM_GYRO_SCALE MPU6886GyroScale;
+extern enum MPU6886_ENUM_ACCEL_SCALE MPU6886AccelScale;
 
 /**
  * @brief   Initialize MPU6886
