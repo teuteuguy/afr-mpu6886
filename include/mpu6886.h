@@ -142,7 +142,7 @@ extern enum Ascale Acscale;
  * @return  MPU6886_SUCCESS success
  *          MPU6886_FAIL failed
  */
-mpu6886_err_t eMPU6886Init( void );
+mpu6886_err_t eMPU6886Init( IotI2CHandle_t handle );
 
 /**
  * @brief   Get accelerometer data
@@ -177,6 +177,5 @@ mpu6886_err_t eGetMPU6886GyroData( float * gx, float * gy, float * gz );
  *          MPU6886_FAIL failed
  */
 mpu6886_err_t eGetMPU6886TempData( float * t );
-
 
 #endif // _MPU6886_H_

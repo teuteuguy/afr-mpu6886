@@ -1,15 +1,33 @@
-# include paths of this components.
-set(COMPONENT_ADD_INCLUDEDIRS . src include afr-common-io-helpers util)
+set(module_name "mpu6886")
+message("Module: ${module_name}")
 
-# source files of this components.
-set(COMPONENT_SRCDIRS src afr-common-io-helpers util)
+add_subdirectory( MahonyAHRS )
 
-# add this components, this will define a CMake library target.
-register_component()
+# afr_module()
 
-# standard CMake function can be used to specify dependencies. ${COMPONENT_TARGET} is defined
-# from esp-idf when you call register_component, by default it's idf_component_<folder_name>.
-target_link_libraries(${COMPONENT_TARGET} 
-    PRIVATE 
-    AFR::common_io
+afr_module_sources(
+# target_sources(
+    ${module_name} 
+    PRIVATE
+        "${CMAKE_CURRENT_LIST_DIR}/src/mpu6886.c"
 )
+
+afr_module_include_dirs(
+# target_include_directories(
+    ${module_name}
+    PUBLIC
+        "${CMAKE_CURRENT_LIST_DIR}/include"
+)
+
+afr_module_dependencies(
+    ${module_name} 
+    INTERFACE
+        AFR::common
+        AFR::common_io
+    PUBLIC
+        MahonyAHRS
+
+)
+
+add_library(${module_name} INTERFACE)
+add_library(sensor::${module_name} ALIAS ${module_name})
