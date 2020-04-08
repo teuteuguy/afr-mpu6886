@@ -142,7 +142,7 @@ extern enum MPU6886_ENUM_ACCEL_SCALE MPU6886AccelScale;
  * @return  MPU6886_SUCCESS success
  *          MPU6886_FAIL failed
  */
-mpu6886_err_t eMPU6886Init( IotI2CHandle_t handle );
+mpu6886_err_t eMPU6886Init( IotI2CHandle_t const handle );
 
 /**
  * @brief   Get accelerometer data
@@ -177,5 +177,17 @@ mpu6886_err_t eGetMPU6886GyroData( float * gx, float * gy, float * gz );
  *          MPU6886_FAIL failed
  */
 mpu6886_err_t eGetMPU6886TempData( float * t );
+
+/**
+ * @brief   Get MahonyAHRS data
+ *
+ * @param   pitch: pointer to pitch value
+ *          roll: pointer to roll value
+ *          yaw: pointer to yaw value
+ * 
+ * @return  MPU6886_SUCCESS success
+ *          MPU6886_FAIL failed
+ */
+mpu6886_err_t eGetMPU6886AhrsData( float * pitch, float * roll, float * yaw );
 
 #endif // _MPU6886_H_

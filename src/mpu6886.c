@@ -10,6 +10,10 @@
 #include "common_io_helpers.h"
 #include "MahonyAHRS.h"
 
+#define LIBRARY_LOG_LEVEL IOT_LOG_DEBUG
+#define LIBRARY_LOG_NAME  "mpu6886"
+#include "iot_logging_setup.h"
+
 /*-----------------------------------------------------------*/
 
 static IotI2CHandle_t prvMPU6886I2CHandle = NULL;
@@ -47,7 +51,7 @@ mpu6886_err_t prvGetMPU6886TempAdc( int16_t * t );
 
 /*-----------------------------------------------------------*/
 
-mpu6886_err_t eMPU6886Init( IotI2CHandle_t handle )
+mpu6886_err_t eMPU6886Init( IotI2CHandle_t const handle )
 {
     mpu6886_err_t e = MPU6886_FAIL;
     prvMPU6886I2CHandle = handle;
@@ -60,9 +64,12 @@ mpu6886_err_t eMPU6886Init( IotI2CHandle_t handle )
     e = eReadI2CBytes( handle, MPU6886_I2C_ADDRESS, tempdata, 1 );
     if ( e != COMMON_IO_SUCCESS || tempdata[ 0 ] != MPU6886_RESET_VALUE_WHO_AM_I )
     {
-        IotLogError( "eMPU6886Init: Error reading MPU6886_REG_WHO_AM_I (%#04X)", tempdata );
+        IotLogError( "eMPU6886Init: Error (%i) reading MPU6886_REG_WHO_AM_I(%#04x): %#04x vs. %#04x", e, MPU6886_REG_WHO_AM_I, MPU6886_RESET_VALUE_WHO_AM_I, tempdata[ 0 ] );
         return MPU6886_FAIL;
     }
+
+    IotLogDebug( "eMPU6886Init: Read MPU6886_REG_WHO_AM_I(%#04x): %#04x vs. %#04x", MPU6886_REG_WHO_AM_I, tempdata[ 0 ], MPU6886_RESET_VALUE_WHO_AM_I );    
+    IotLogDebug( "eMPU6886Init: Setting inits" );    
 
     for (i = 0; i < MPU6886_INIT_REG_COUNT * 2; i += 2)
     {
@@ -73,12 +80,12 @@ mpu6886_err_t eMPU6886Init( IotI2CHandle_t handle )
         e = eWriteI2CBytes( handle, MPU6886_I2C_ADDRESS, tempdata, 2 );
         if ( e != COMMON_IO_SUCCESS )
         {
-            IotLogError( "eMPU6886Init: Error writting %#04X register", prvMPU6886InitRegisterDefaultList[ i ] );
+            IotLogError( "eMPU6886Init: Error writting %#04x register", prvMPU6886InitRegisterDefaultList[ i ] );
             error_count++;
         }
         else
         {
-            IotLogDebug( "eMPU6886Init: %#04X %#04X", prvMPU6886InitRegisterDefaultList[ i ], prvMPU6886InitRegisterDefaultList[ i + 1 ]);
+            IotLogDebug( "eMPU6886Init: Wrote %#04x @ %#04x", tempdata[ 0 ], tempdata[ 1 ] );
         }
         
     }
