@@ -1,5 +1,6 @@
 /**
- * mpu6886.h - Component to work with MPU6886
+ * @file mpu6886.h
+ * @brief Component to work with MPU6886
  *
  * Include this header file to use the component.
  *

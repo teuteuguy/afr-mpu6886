@@ -1,5 +1,6 @@
 /**
- * mpu6886.c - Component to work with MPU6886
+ * @file mpu6886.c
+ * @brief Component to work with MPU6886
  *
  * (C) 2020 - Timothee Cruse <timothee.cruse@gmail.com>
  * This code is licensed under the MIT License.
@@ -10,7 +11,7 @@
 #include "common_io_helpers.h"
 #include "MahonyAHRS.h"
 
-#define LIBRARY_LOG_LEVEL IOT_LOG_DEBUG
+#define LIBRARY_LOG_LEVEL IOT_LOG_INFO
 #define LIBRARY_LOG_NAME  "mpu6886"
 #include "iot_logging_setup.h"
 

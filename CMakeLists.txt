@@ -1,7 +1,9 @@
 set(module_name "mpu6886")
 message("Module: ${module_name}")
 
-add_subdirectory( afr-common-io-helpers )
+if (NOT TARGET common-io-helpers)
+    add_subdirectory( afr-common-io-helpers )
+endif()
 add_subdirectory( MahonyAHRS )
 
 add_library(${module_name})
